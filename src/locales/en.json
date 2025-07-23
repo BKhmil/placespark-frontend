@@ -1,0 +1,114 @@
+{
+	"header": {
+		"app_name": "PlaceSpark",
+		"top": "Top",
+		"piyachok": "Piyachok",
+		"news": "News",
+		"sign_in": "Sign In",
+		"sign_up": "Sign Up"
+	},
+	"auth": {
+		"email": "Email",
+		"password": "Password",
+		"name": "Name",
+		"sign_in": "Sign In",
+		"sign_up": "Sign Up",
+		"success": "Sign in successful!",
+		"register_success": "Registration successful!",
+		"error": "Sign in error",
+		"register_error": "Registration error",
+		"logout_title": "Log out of your account?",
+		"logout_this": "Log out of this device",
+		"logout_all": "Log out of all devices",
+		"cancel": "Cancel",
+		"verify_email_no_token": "Verification token is missing.",
+		"verify_email_error": "Email verification error.",
+		"verify_email_success": "Email successfully verified!",
+		"verify_email_pending": "Verifying..."
+	},
+	"home": {
+		"welcome": "Welcome to PlaceSpark!",
+		"find": "Find, filter, rate and add your favorite places.",
+		"popular": "Popular establishments",
+		"search_placeholder": "Search for a place...",
+		"search": "Search",
+		"details": "Details"
+	},
+	"establishments": {
+		"search_placeholder": "Search by name...",
+		"type_all": "All types",
+		"type": {
+			"restaurant": "Restaurant",
+			"bar": "Bar",
+			"cafe": "Cafe",
+			"pub": "Pub",
+			"club": "Club",
+			"fast_food": "Fast Food",
+			"pizzeria": "Pizzeria",
+			"sushi": "Sushi",
+			"brewery": "Brewery",
+			"lounge": "Lounge",
+			"steakhouse": "Steakhouse",
+			"bakery": "Bakery",
+			"coffee_shop": "Coffee Shop",
+			"wine_bar": "Wine Bar",
+			"food_court": "Food Court",
+			"street_food": "Street Food",
+			"karaoke": "Karaoke",
+			"hookah": "Hookah"
+		},
+		"feature": {
+			"wifi": "Wi-Fi",
+			"parking": "Parking",
+			"live_music": "Live Music",
+			"terrace": "Terrace",
+			"kids_zone": "Kids Zone",
+			"vegan": "Vegan Options",
+			"pet_friendly": "Pet Friendly",
+			"delivery": "Delivery",
+			"card_payment": "Card Payment",
+			"air_conditioning": "Air Conditioning",
+			"smoking_area": "Smoking Area",
+			"craft_beer": "Craft Beer",
+			"karaoke": "Karaoke",
+			"dance_floor": "Dance Floor",
+			"projector": "Projector",
+			"sports_tv": "Sports TV",
+			"takeaway": "Takeaway",
+			"wheelchair_access": "Wheelchair Access"
+		},
+		"order_by": {
+			"createdAt": "Newest",
+			"name": "Name",
+			"rating": "Rating",
+			"averageCheck": "Average Check",
+			"distance": "Distance"
+		},
+		"order": {
+			"asc": "Ascending",
+			"desc": "Descending"
+		},
+		"order_by_label": "Sort by",
+		"order_label": "Order",
+		"rating_min": "Min rating",
+		"average_check_min": "Min check",
+		"average_check_max": "Max check",
+		"apply_filters": "Apply",
+		"reset_filters": "Reset",
+		"loading": "Loading...",
+		"error": "Failed to load establishments.",
+		"empty": "No establishments found.",
+		"details": "Details",
+		"prev": "Previous",
+		"next": "Next",
+		"page": "Page"
+	},
+	"not_found": {
+		"title": "404",
+		"message": "Page not found",
+		"to_home": "To home"
+	},
+	"filters": {
+		"tags": "Tags"
+	}
+}

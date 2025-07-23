@@ -1,0 +1,112 @@
+{
+	"header": {
+		"app_name": "PlaceSpark",
+		"top": "Топ",
+		"piyachok": "Пиячок",
+		"news": "Новини",
+		"sign_in": "Вхід",
+		"sign_up": "Реєстрація"
+	},
+	"auth": {
+		"email": "Email",
+		"password": "Пароль",
+		"name": "Ім'я",
+		"sign_in": "Увійти",
+		"sign_up": "Зареєструватися",
+		"success": "Вхід успішний!",
+		"register_success": "Реєстрація успішна!",
+		"error": "Помилка входу",
+		"register_error": "Помилка реєстрації",
+		"logout_title": "Вийти з акаунту?",
+		"logout_this": "Вийти з цього пристрою",
+		"logout_all": "Вийти з усіх пристроїв",
+		"cancel": "Скасувати",
+		"verify_email_no_token": "Відсутній токен для верифікації.",
+		"verify_email_error": "Помилка верифікації email.",
+		"verify_email_success": "Email успішно верифіковано!",
+		"verify_email_pending": "Верифікація..."
+	},
+	"home": {
+		"welcome": "Ласкаво просимо до PlaceSpark!",
+		"find": "Знаходь, фільтруй, оцінюй та додавай улюблені заклади.",
+		"popular": "Популярні заклади",
+		"search_placeholder": "Пошук закладу...",
+		"search": "Пошук",
+		"details": "Детальніше"
+	},
+	"establishments": {
+		"search_placeholder": "Пошук за іменем...",
+		"type_all": "Всі типи",
+		"type": {
+			"restaurant": "Ресторан",
+			"bar": "Бар",
+			"cafe": "Кафе",
+			"pub": "Паб",
+			"club": "Клуб",
+			"fast_food": "Фаст-фуд",
+			"pizzeria": "Піцерія",
+			"sushi": "Суші",
+			"brewery": "Пивоварня",
+			"lounge": "Лаунж",
+			"steakhouse": "Стейкхаус",
+			"bakery": "Пекарня",
+			"coffee_shop": "Кав'ярня",
+			"wine_bar": "Винний бар",
+			"food_court": "Фудкорт",
+			"street_food": "Вулична їжа",
+			"karaoke": "Караоке",
+			"hookah": "Кальян"
+		},
+		"feature": {
+			"wifi": "Wi-Fi",
+			"parking": "Паркінг",
+			"live_music": "Жива музика",
+			"terrace": "Тераса",
+			"kids_zone": "Дитяча зона",
+			"vegan": "Веган-меню",
+			"pet_friendly": "З тваринами",
+			"delivery": "Доставка",
+			"card_payment": "Оплата карткою",
+			"air_conditioning": "Кондиціонер",
+			"smoking_area": "Місце для куріння",
+			"craft_beer": "Крафтове пиво",
+			"karaoke": "Караоке",
+			"dance_floor": "Танцпол",
+			"projector": "Проектор",
+			"sports_tv": "Спортивне ТБ",
+			"takeaway": "З собою",
+			"wheelchair_access": "Доступно для інвалідних візків"
+		},
+		"order_by": {
+			"createdAt": "Новіші",
+			"name": "Назва",
+			"rating": "Рейтинг",
+			"averageCheck": "Середній чек",
+			"distance": "Відстань"
+		},
+		"order": {
+			"asc": "Зростання",
+			"desc": "Спадання"
+		},
+		"rating_min": "Мін. рейтинг",
+		"average_check_min": "Мін. чек",
+		"average_check_max": "Макс. чек",
+		"apply_filters": "Застосувати",
+		"reset_filters": "Скинути",
+		"loading": "Завантаження...",
+		"error": "Не вдалося завантажити заклади.",
+		"empty": "Закладів не знайдено.",
+		"details": "Детальніше",
+		"prev": "Попередня",
+		"next": "Наступна",
+		"page": "Сторінка"
+	},
+	"not_found": {
+		"title": "404",
+		"message": "Сторінку не знайдено",
+		"to_home": "На головну"
+	},
+	"filters": {
+		"tags": "Теги"
+	}
+}
