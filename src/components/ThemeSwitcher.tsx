@@ -5,8 +5,9 @@ const ThemeSwitcher = () => {
 
 	return (
 		<button
+			type='button'
 			onClick={toggleTheme}
-			className='px-2 py-1 rounded bg-gray-200 dark:bg-gray-700'
+			className='px-2 py-1 bg-gray-200 rounded dark:bg-gray-700'
 			aria-label='Перемкнути тему'
 		>
 			{theme === 'dark' ? '🌙' : '☀️'}

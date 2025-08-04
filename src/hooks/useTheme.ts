@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { LocaleStorageKeysEnum } from "../enums/locale-storage-keys.enum";
 
 export type Theme = 'light' | 'dark';
 
@@ -6,7 +7,7 @@ export const useTheme = (): [Theme, () => void] => {
 	const [theme, setTheme] = useState<Theme>(() => {
 		if (typeof window !== 'undefined') {
 			return (
-				(localStorage.getItem('theme') as Theme) ||
+				(localStorage.getItem(LocaleStorageKeysEnum.THEME) as Theme) ||
 				(window.matchMedia('(prefers-color-scheme: dark)').matches
 					? 'dark'
 					: 'light')
@@ -22,7 +23,7 @@ export const useTheme = (): [Theme, () => void] => {
 		} else {
 			root.classList.remove('dark');
 		}
-		localStorage.setItem('theme', theme);
+		localStorage.setItem(LocaleStorageKeysEnum.THEME, theme);
 	}, [theme]);
 
 	const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));

@@ -8,15 +8,15 @@ import ThemeSwitcher from './ThemeSwitcher';
 
 const Header = () => {
 	const { t } = useTranslation();
-	const { isAuthenticated, user } = useAppSelector((state) => state.user);
+	const { user } = useAppSelector((state) => state.user);
 	const [logoutOpen, setLogoutOpen] = useState(false);
 
-	// Reset logout modal on user or auth state change
+	// Reset logout modal on user state change
 	// cuz previously I had a bug when the modal was open when the user was
 	// successfully registered
 	useEffect(() => {
 		setLogoutOpen(false);
-	}, [user?._id, isAuthenticated]);
+	}, [user?._id]);
 
 	return (
 		<header className='sticky top-0 left-0 z-40 w-full transition-colors shadow-lg bg-white/90 dark:bg-gray-900/90 backdrop-blur'>
@@ -34,17 +34,24 @@ const Header = () => {
 					<Link to='/news' className='hover:underline'>
 						{t('header.news')}
 					</Link>
+					<Link to='/places' className='hover:underline'>
+						{t('header.places', 'Заклади')}
+					</Link>
 				</nav>
 				<div className='flex items-center gap-2'>
 					<LanguageSwitcher />
 					<ThemeSwitcher />
-					{isAuthenticated && user ? (
+					{user ? (
 						<>
 							<Link
 								to='/profile'
 								className='flex items-center gap-2 px-3 py-1 bg-gray-100 rounded dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
 							>
-								<span className='text-xl'>👤</span>
+								{user.photo ? (
+									<img src={user.photo} alt='user avatar' width='50px' />
+								) : (
+									<span className='text-xl'>👤</span>
+								)}
 								<span className='hidden sm:inline'>{user.name}</span>
 							</Link>
 							<button

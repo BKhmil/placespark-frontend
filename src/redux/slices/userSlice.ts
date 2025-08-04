@@ -3,25 +3,35 @@ import type { IUser } from '../../interfaces/user.interface';
 
 interface IIUserState {
 	user: IUser | null;
-	isAuthenticated: boolean;
 }
 
 const initialState: IIUserState = {
 	user: null,
-	isAuthenticated: false,
 };
 
 const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		setUser(state, action: PayloadAction<IIUserState['user']>) {
+		setUser(state, action: PayloadAction<IUser>) {
 			state.user = action.payload;
-			state.isAuthenticated = !!action.payload;
 		},
 		removeUser(state) {
 			state.user = null;
-			state.isAuthenticated = false;
+		},
+		addAdminEstablishment(state, action: PayloadAction<string>) {
+			if (state.user) {
+				if (!Array.isArray(state.user.admin_establishments)) {
+					state.user.admin_establishments = [];
+				}
+				state.user.admin_establishments.push(action.payload);
+			}
+		},
+		removeAdminEstablishment(state, action: PayloadAction<string>) {
+			if (state.user && Array.isArray(state.user.admin_establishments)) {
+				state.user.admin_establishments =
+					state.user.admin_establishments.filter((id) => id !== action.payload);
+			}
 		},
 	},
 });

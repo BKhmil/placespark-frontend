@@ -2,17 +2,20 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { LocaleStorageKeysEnum } from '../../enums/locale-storage-keys.enum';
 import { RoleEnum } from '../../enums/role.enum';
 import { useAppDispatch } from '../../hooks/rtk';
 import type { ISignUpRequest } from '../../interfaces/auth.interface';
 import { useSignUpMutation } from '../../redux/api/authApi';
 import { userSliceActions } from '../../redux/slices/userSlice';
+import { UserValidator } from '../../validators/user.validator';
 
 const SignUpPage = () => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		setError,
 	} = useForm<ISignUpRequest>();
 	const [signUp, { isLoading, isError, isSuccess }] = useSignUpMutation();
 	const [successMsg, setSuccessMsg] = useState('');
@@ -21,12 +24,31 @@ const SignUpPage = () => {
 	const dispatch = useAppDispatch();
 
 	const onSubmit = async (data: ISignUpRequest) => {
+		const { error } = UserValidator.signUp.validate(data, {
+			abortEarly: false,
+		});
+		if (error) {
+			error.details.forEach((err) => {
+				if (err.path[0]) {
+					setError(err.path[0] as keyof ISignUpRequest, {
+						message: err.message,
+					});
+				}
+			});
+			return;
+		}
 		try {
 			const response = await signUp({ ...data, role: RoleEnum.USER }).unwrap();
 			console.log(response);
-			localStorage.setItem('accessToken', response.tokens.accessToken);
-			localStorage.setItem('refreshToken', response.tokens.refreshToken);
-			localStorage.setItem('user', JSON.stringify(response.user));
+			localStorage.setItem(
+				LocaleStorageKeysEnum.ACCESS_TOKEN,
+				response.tokens.accessToken,
+			);
+			localStorage.setItem(
+				LocaleStorageKeysEnum.REFRESH_TOKEN,
+				response.tokens.refreshToken,
+			);
+
 			dispatch(
 				userSliceActions.setUser({
 					...response.user,

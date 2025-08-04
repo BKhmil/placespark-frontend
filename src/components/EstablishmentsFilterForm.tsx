@@ -1,5 +1,5 @@
 import { type TFunction } from 'i18next';
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 import {
 	type Control,
 	type UseFormHandleSubmit,
@@ -8,6 +8,7 @@ import {
 import Select from 'react-select';
 import { type IEstablishmentsFilterForm } from '../pages/Home/EstablishmentsListSection';
 import { placeApi } from '../redux/api/placeApi';
+import { PlaceValidator } from '../validators/place.validator';
 
 export interface IOption {
 	value: string;
@@ -41,14 +42,32 @@ const EstablishmentsFilterForm: FC<IEstablishmentsFilterFormProps> = ({
 	t,
 }) => {
 	const { data, isLoading } = placeApi.useGetTagsQuery();
+	const [validationError, setValidationError] = useState<string | null>(null);
 
 	if (isLoading) return <div>Loading...</div>;
 
 	const tagOptions =
 		data?.tags.map((tag) => ({ value: tag, label: tag })) ?? [];
 
+	const handleValidate = (data: any) => {
+		const { error } = PlaceValidator.getListQuery.validate(data, {
+			abortEarly: false,
+		});
+		if (error) {
+			setValidationError(error.details[0].message);
+			return false;
+		}
+		setValidationError(null);
+		return true;
+	};
+
+	const handleFormSubmit = (data: any) => {
+		if (!handleValidate(data)) return;
+		onSubmit(data);
+	};
+
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
+		<form onSubmit={handleSubmit(handleFormSubmit)}>
 			<div className='mb-4 filter-group'>
 				<label
 					htmlFor='est-name'
@@ -316,6 +335,11 @@ const EstablishmentsFilterForm: FC<IEstablishmentsFilterFormProps> = ({
 			{geoError && (
 				<div className='mt-2 text-sm text-red-600 dark:text-red-400'>
 					{geoError}
+				</div>
+			)}
+			{validationError && (
+				<div className='mt-2 text-sm text-red-600 dark:text-red-400'>
+					{validationError}
 				</div>
 			)}
 		</form>

@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { LocaleStorageEntriesEnum } from "../enums/locale-storage-entries.enum";
+import { LocaleStorageKeysEnum } from '../enums/locale-storage-keys.enum';
 
 const LanguageSwitcher = () => {
 	const { i18n } = useTranslation();
 
 	const changeLanguage = (lng: string) => {
 		void i18n.changeLanguage(lng);
-		localStorage.setItem(LocaleStorageEntriesEnum.LANG, lng);
+		localStorage.setItem(LocaleStorageKeysEnum.LANG, lng);
 	};
 
 	return (

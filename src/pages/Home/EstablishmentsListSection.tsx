@@ -199,7 +199,8 @@ const EstablishmentsListSection = () => {
 					t={t}
 				/>
 			</aside>
-			<section className='flex-1 places-content'>
+
+			<section className='flex-1 places-content flex flex-col min-h-[720px]'>
 				{isLoading ? (
 					<div className='py-10 text-center text-gray-500 dark:text-gray-300'>
 						{t('establishments.loading', 'Loading...')}
@@ -214,21 +215,19 @@ const EstablishmentsListSection = () => {
 					</div>
 				) : (
 					<>
-						{data && data.data.length > 0 && (
-							<EstablishmentsGrid
-								data={data.data}
-								t={t}
-								minHeight='720px'
-							/>
-						)}
-						{data && data.total > PAGE_SIZE && (
-							<Pagination
-								page={appliedFilters.page}
-								total={data.total}
-								pageSize={PAGE_SIZE}
-								onPageChange={handlePageChange}
-							/>
-						)}
+						<div className='flex flex-col flex-1'>
+							<EstablishmentsGrid data={data?.data || []} t={t} />
+						</div>
+						<div className='mt-8'>
+							{data && data.total > PAGE_SIZE && (
+								<Pagination
+									page={appliedFilters.page}
+									total={data.total}
+									pageSize={PAGE_SIZE}
+									onPageChange={handlePageChange}
+								/>
+							)}
+						</div>
 					</>
 				)}
 			</section>

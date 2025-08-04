@@ -110,5 +110,18 @@
 	},
 	"filters": {
 		"tags": "Tags"
+	},
+	"validation": {
+		"name_optional": "Name is optional",
+		"name_min": "Name must be at least 1 character",
+		"name_max": "Name must be no more than 100 characters",
+		"address_required": "Address is required",
+		"address_min": "Address must be at least 5 characters",
+		"address_max": "Address must be no more than 200 characters",
+		"location_lat_number": "Latitude must be a number",
+		"location_lng_number": "Longitude must be a number",
+		"type_optional": "Type is optional",
+		"order_optional": "Order is optional",
+		"orderBy_optional": "Order by field is optional"
 	}
 }

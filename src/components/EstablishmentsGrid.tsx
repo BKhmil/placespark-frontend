@@ -1,7 +1,7 @@
 import { type TFunction } from 'i18next';
 import { type FC } from 'react';
+import type { IPlace } from '../interfaces/place.interface.ts';
 import EstablishmentCard from './EstablishmentCard';
-import type {IPlace} from "../interfaces/place.interface.ts";
 
 interface IEstablishmentsGridProps {
 	data: IPlace[];
@@ -15,7 +15,7 @@ const EstablishmentsGrid: FC<IEstablishmentsGridProps> = ({
 	minHeight,
 }) => (
 	<div
-		className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto min-h-[70vh] px-2 sm:px-4 md:px-8 items-stretch'
+		className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-6 gap-x-12 mx-0 min-h-[70vh] px-2 sm:px-4 md:px-8 items-stretch'
 		style={{ minHeight }}
 	>
 		{data.map((place) => (

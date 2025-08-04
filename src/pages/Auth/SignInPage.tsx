@@ -2,15 +2,18 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useSignInMutation } from '../../redux/api/authApi';
-import { userSliceActions } from '../../redux/slices/userSlice';
+import { LocaleStorageKeysEnum } from '../../enums/locale-storage-keys.enum';
 import { useAppDispatch } from '../../hooks/rtk';
 import type { ISignInRequest } from '../../interfaces/auth.interface';
+import { useSignInMutation } from '../../redux/api/authApi';
+import { userSliceActions } from '../../redux/slices/userSlice';
+import { UserValidator } from '../../validators/user.validator';
 
 const SignInPage = () => {
 	const {
 		register,
 		handleSubmit,
+		setError,
 		formState: { errors },
 	} = useForm<ISignInRequest>();
 	const [signIn, { isLoading, isError, isSuccess }] = useSignInMutation();
@@ -20,23 +23,37 @@ const SignInPage = () => {
 	const dispatch = useAppDispatch();
 
 	const onSubmit = async (data: ISignInRequest) => {
-		try {
-			const response = await signIn(data).unwrap();
-			localStorage.setItem('accessToken', response.tokens.accessToken);
-			localStorage.setItem('refreshToken', response.tokens.refreshToken);
-			localStorage.setItem('user', JSON.stringify(response.user));
-			dispatch(
-				userSliceActions.setUser({
-					...response.user,
-					createdAt: String(response.user.createdAt),
-					updatedAt: String(response.user.updatedAt),
-				}),
-			);
-			setSuccessMsg(t('auth.success'));
-			navigate('/');
-		} catch {
-			// handled by rtk query
+		const { error } = UserValidator.signIn.validate(data, {
+			abortEarly: false,
+		});
+		if (error) {
+			error.details.forEach((err) => {
+				if (err.path[0]) {
+					setError(err.path[0] as keyof ISignInRequest, {
+						message: err.message,
+					});
+				}
+			});
+			return;
 		}
+		const response = await signIn(data).unwrap();
+		localStorage.setItem(
+			LocaleStorageKeysEnum.ACCESS_TOKEN,
+			response.tokens.accessToken,
+		);
+		localStorage.setItem(
+			LocaleStorageKeysEnum.REFRESH_TOKEN,
+			response.tokens.refreshToken,
+		);
+		dispatch(
+			userSliceActions.setUser({
+				...response.user,
+				createdAt: String(response.user.createdAt),
+				updatedAt: String(response.user.updatedAt),
+			}),
+		);
+		setSuccessMsg(t('auth.success'));
+		navigate('/');
 	};
 
 	return (

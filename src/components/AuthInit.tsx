@@ -1,46 +1,63 @@
 import { useEffect, useState } from 'react';
-import { LocaleStorageEntriesEnum } from '../enums/locale-storage-entries.enum';
+import { LocaleStorageKeysEnum } from '../enums/locale-storage-keys.enum';
 import { useAppDispatch } from '../hooks/rtk';
 import { usePingMutation } from '../redux/api/authApi';
+import { useGetMeQuery } from '../redux/api/userApi';
 import { userSliceActions } from '../redux/slices/userSlice';
-
-// On the backend, I set the refresh token lifetime as 7 days. Now, on app start, we ping the backend to ensure the session is still valid.
+import { SessionStorageKeysEnum } from "../enums/session-storage-keys";
 
 const AuthInit = () => {
 	const dispatch = useAppDispatch();
-	const [ping, { isLoading }] = usePingMutation();
+	const [ping, { isLoading: isPinging }] = usePingMutation();
 	const [checked, setChecked] = useState(false);
+	const [shouldFetchMe, setShouldFetchMe] = useState(false);
+
+	const {
+		data: user,
+		isSuccess: isMeSuccess,
+		isError: isMeError,
+	} = useGetMeQuery(undefined, { skip: !shouldFetchMe });
 
 	useEffect(() => {
-		const userStr = localStorage.getItem(LocaleStorageEntriesEnum.USER);
 		const refreshToken = localStorage.getItem(
-			LocaleStorageEntriesEnum.REFRESH_TOKEN,
+			LocaleStorageKeysEnum.REFRESH_TOKEN,
 		);
-		if (userStr && refreshToken) {
-			ping()
-				.unwrap()
-				.then(() => {
-					try {
-						const user = JSON.parse(userStr);
-						dispatch(userSliceActions.setUser(user));
-					} catch {
-						localStorage.removeItem(LocaleStorageEntriesEnum.USER);
+		const isPinged = sessionStorage.getItem(SessionStorageKeysEnum.IS_PINGED);
+
+		if (refreshToken) {
+			if (isPinged) {
+				setShouldFetchMe(true);
+				setChecked(true);
+			} else {
+				ping()
+					.unwrap()
+					.then(() => {
+						sessionStorage.setItem(SessionStorageKeysEnum.IS_PINGED, JSON.stringify(true));
+						setShouldFetchMe(true);
+						setChecked(true);
+					})
+					.catch(() => {
+						localStorage.clear();
 						dispatch(userSliceActions.removeUser());
-					}
-					setChecked(true);
-				})
-				.catch(() => {
-					localStorage.clear();
-					dispatch(userSliceActions.removeUser());
-					setChecked(true);
-				});
+						setChecked(true);
+					});
+			}
 		} else {
 			dispatch(userSliceActions.removeUser());
 			setChecked(true);
 		}
 	}, []);
 
-	if (!checked || isLoading) {
+	useEffect(() => {
+		if (isMeSuccess && user) {
+			dispatch(userSliceActions.setUser(user));
+		}
+		if (isMeError) {
+			dispatch(userSliceActions.removeUser());
+		}
+	}, [isMeSuccess, isMeError, user, dispatch]);
+
+	if (!checked || isPinging) {
 		return (
 			<div className='flex items-center justify-center w-full h-screen text-lg text-gray-500 dark:text-gray-300'>
 				Loading...
