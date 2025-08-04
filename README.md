@@ -2,6 +2,8 @@
 
 A modern, minimalist, and adaptive frontend for the PlaceSpark platform.
 
+P.S.: The project is in the development phase. All internationalization (i18n), adaptive layout, and final design elements will be implemented after the MVP has been delivered.
+
 ## Overview
 
 PlaceSpark is a full-stack web application for discovering, filtering, and managing establishments. The frontend is built with React, TypeScript, Vite, and follows best practices for code structure, state management, and UI/UX.
